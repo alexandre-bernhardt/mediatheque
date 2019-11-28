@@ -88,7 +88,10 @@ export class BooksService {
   uploadFile(file: File) {
     return new Promise(
       (resolve, reject) => {
-        const almostUniqueFileName = Date.now.toString();
+        const almostUniqueFileName = Date.now().toString();
+        console.log('test date')
+        console.log(almostUniqueFileName);
+        console.log(firebase.storage().ref().child('images/' + almostUniqueFileName + file.name));
         const upload = firebase.storage().ref()
           .child('images/' + almostUniqueFileName + file.name)
           .put(file);
@@ -97,7 +100,7 @@ export class BooksService {
             console.log('Upload du fichier...');
           },
           (error) => {
-            console.log("Erreur durant l'upload : " + error);
+            console.log(error);
             reject();
           },
           () => {
